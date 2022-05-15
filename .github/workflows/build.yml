@@ -31,7 +31,7 @@ jobs:
           queries: security-and-quality
 
       - name: Build with Maven
-        run: mvnw package
+        run: ./mvnw package
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2.1.10
