@@ -19,5 +19,14 @@ jobs:
           java-version: 11
           cache: maven
 
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2.1.10
+        with:
+          languages: java
+          queries: security-and-quality
+
       - name: Build with Maven
-        run: mvn clean package
+        run: mvnw package
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2.1.10
