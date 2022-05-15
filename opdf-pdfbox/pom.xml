@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>dev.noid.toolbox.opdf</groupId>
+    <artifactId>opdf-parent</artifactId>
+    <version>1.0.0</version>
+  </parent>
+
+  <artifactId>opdf-pdfbox</artifactId>
+  <name>Open PDF Tool :: Apache PDFBox</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>dev.noid.toolbox.opdf</groupId>
+      <artifactId>opdf-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.pdfbox</groupId>
+      <artifactId>pdfbox</artifactId>
+    </dependency>
+  </dependencies>
+</project>
