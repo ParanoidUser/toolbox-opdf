@@ -1,0 +1,18 @@
+# Instructions to configure global '.gitignore' file
+# https://docs.github.com/en/github/using-git/ignoring-files#configuring-ignored-files-for-all-repositories-on-your-computer
+#
+# Unix:   git config --global core.excludesFile '~/.gitignore'
+# Winows: git config --global core.excludesFile "%USERPROFILE%\.gitignore"
+
+
+# Apache Maven
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+dependency-reduced-pom.xml
+release.properties
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+target/
