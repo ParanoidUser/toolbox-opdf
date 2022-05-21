@@ -1,5 +1,6 @@
 package dev.noid.toolbox.opdf.core;
 
+import dev.noid.toolbox.opdf.api.DataSink;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;

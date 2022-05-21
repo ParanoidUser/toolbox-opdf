@@ -1,13 +1,11 @@
 package dev.noid.toolbox.opdf.cli;
 
-import dev.noid.toolbox.opdf.api.PdfEngineFactory;
-import dev.noid.toolbox.opdf.core.DataSink;
-import dev.noid.toolbox.opdf.core.DataSource;
-import dev.noid.toolbox.opdf.core.DataTask;
+import dev.noid.toolbox.opdf.api.DataSink;
+import dev.noid.toolbox.opdf.api.DataSource;
+import dev.noid.toolbox.opdf.api.DataSplitter;
 import dev.noid.toolbox.opdf.core.FileSource;
 import dev.noid.toolbox.opdf.core.IncPostfixFileSink;
-import dev.noid.toolbox.opdf.core.PdfSplitTask;
-import dev.noid.toolbox.opdf.spi.PdfSplitter;
+import dev.noid.toolbox.opdf.spi.DataFactoryProvider;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import picocli.CommandLine.Command;
@@ -57,10 +55,9 @@ public class Split implements Runnable {
       outputDirectory = sourceFile.getParent();
     }
 
-    PdfSplitter splitter = new PdfEngineFactory().getEngine(PdfSplitter.class);
     DataSource source = new FileSource(sourceFile);
     DataSink sink = new IncPostfixFileSink(outputDirectory.resolve(sourceFile.getFileName()));
-    DataTask task = new PdfSplitTask(splitter, source, sink);
-    task.execute();
+    DataSplitter splitter = DataFactoryProvider.getSplitterFactory().getSplitter();
+    splitter.split(source, sink);
   }
 }

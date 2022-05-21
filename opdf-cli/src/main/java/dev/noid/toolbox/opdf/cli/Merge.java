@@ -1,13 +1,11 @@
 package dev.noid.toolbox.opdf.cli;
 
-import dev.noid.toolbox.opdf.api.PdfEngineFactory;
-import dev.noid.toolbox.opdf.core.DataSink;
-import dev.noid.toolbox.opdf.core.DataSource;
-import dev.noid.toolbox.opdf.core.DataTask;
+import dev.noid.toolbox.opdf.api.DataMerger;
+import dev.noid.toolbox.opdf.api.DataSink;
+import dev.noid.toolbox.opdf.api.DataSource;
 import dev.noid.toolbox.opdf.core.FileSink;
 import dev.noid.toolbox.opdf.core.FileSource;
-import dev.noid.toolbox.opdf.core.PdfMergeTask;
-import dev.noid.toolbox.opdf.spi.PdfMerger;
+import dev.noid.toolbox.opdf.spi.DataFactoryProvider;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -68,11 +66,11 @@ public class Merge implements Runnable {
       outputFile = directory.resolve(fileName + "_merged.pdf");
     }
 
-    PdfMerger merger = new PdfEngineFactory().getEngine(PdfMerger.class);
     List<DataSource> sources = sourceFiles.stream().map(FileSource::new)
         .collect(Collectors.toList());
     DataSink sink = new FileSink(outputFile);
-    DataTask task = new PdfMergeTask(merger, sources, sink);
-    task.execute();
+
+    DataMerger merger = DataFactoryProvider.getMergerFactory().getMerger();
+    merger.merge(sources, sink);
   }
 }

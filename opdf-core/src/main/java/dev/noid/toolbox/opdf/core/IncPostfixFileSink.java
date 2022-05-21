@@ -1,5 +1,6 @@
 package dev.noid.toolbox.opdf.core;
 
+import dev.noid.toolbox.opdf.api.DataSink;
 import java.io.OutputStream;
 import java.nio.file.Path;
 import java.util.concurrent.atomic.AtomicInteger;
