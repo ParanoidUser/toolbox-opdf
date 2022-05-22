@@ -17,7 +17,7 @@
   <dependencies>
     <dependency>
       <groupId>dev.noid.toolbox.opdf</groupId>
-      <artifactId>opdf-core</artifactId>
+      <artifactId>opdf-common</artifactId>
     </dependency>
     <dependency>
       <groupId>dev.noid.toolbox.opdf</groupId>

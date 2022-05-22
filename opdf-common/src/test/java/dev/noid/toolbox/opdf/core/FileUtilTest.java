@@ -2,6 +2,7 @@ package dev.noid.toolbox.opdf.core;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import dev.noid.toolbox.opdf.common.FileUtil;
 import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 

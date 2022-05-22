@@ -10,9 +10,9 @@
     <version>1.0.0</version>
   </parent>
 
-  <artifactId>opdf-core</artifactId>
+  <artifactId>opdf-common</artifactId>
 
-  <name>Open PDF Tool :: Core</name>
+  <name>Open PDF Tool :: Common Utilities</name>
 
   <dependencies>
     <dependency>

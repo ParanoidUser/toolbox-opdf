@@ -1,4 +1,4 @@
-package dev.noid.toolbox.opdf.core;
+package dev.noid.toolbox.opdf.common;
 
 import dev.noid.toolbox.opdf.api.DataSink;
 import java.io.BufferedOutputStream;

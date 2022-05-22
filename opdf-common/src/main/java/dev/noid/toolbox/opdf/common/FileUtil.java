@@ -1,4 +1,4 @@
-package dev.noid.toolbox.opdf.core;
+package dev.noid.toolbox.opdf.common;
 
 import java.nio.file.Path;
 

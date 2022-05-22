@@ -23,7 +23,7 @@
   <modules>
     <module>opdf-api</module>
     <module>opdf-cli</module>
-    <module>opdf-core</module>
+    <module>opdf-common</module>
     <module>opdf-pdfbox</module>
   </modules>
 
@@ -41,7 +41,7 @@
       </dependency>
       <dependency>
         <groupId>dev.noid.toolbox.opdf</groupId>
-        <artifactId>opdf-core</artifactId>
+        <artifactId>opdf-common</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
