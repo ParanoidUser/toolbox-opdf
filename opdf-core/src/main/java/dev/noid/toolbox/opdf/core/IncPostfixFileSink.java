@@ -8,22 +8,19 @@ import java.util.function.Supplier;
 
 public class IncPostfixFileSink implements DataSink {
 
+  private static final String TEMPLATE = "%s_%s.%s";
+
   private final Supplier<Path> filePathFactory;
 
   public IncPostfixFileSink(Path filePath) {
+    String filename = FileUtil.getNameWithoutExtension(filePath);
+    String extension = FileUtil.getExtension(filePath);
     Path directory = filePath.getParent();
-    String fullFileName = filePath.getFileName().toString();
-
-    int extensionAt = fullFileName.lastIndexOf('.');
-    if (extensionAt < 1) {
-      throw new IllegalArgumentException("File name cannot start with extension: " + filePath);
-    }
-
-    String name = fullFileName.substring(0, extensionAt);
-    String extension = fullFileName.substring(extensionAt);
     AtomicInteger sequence = new AtomicInteger();
-
-    filePathFactory = () -> directory.resolve(name + "_" + sequence.getAndIncrement() + extension);
+    filePathFactory = () -> {
+      var nextFileName = String.format(TEMPLATE, filename, sequence.getAndIncrement(), extension);
+      return directory.resolve(nextFileName);
+    };
   }
 
   @Override
