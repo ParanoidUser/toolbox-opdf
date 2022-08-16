@@ -17,7 +17,7 @@
     <pdfbox.version>2.0.26</pdfbox.version>
     <picocli.version>4.6.3</picocli.version>
     <junit.version>5.9.0</junit.version>
-    <mockito.version>4.6.1</mockito.version>
+    <mockito.version>4.7.0</mockito.version>
   </properties>
 
   <modules>
