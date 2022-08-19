@@ -1,4 +1,4 @@
-package dev.noid.toolbox.opdf.common;
+package dev.noid.toolbox.opdf.io;
 
 import java.nio.file.Path;
 
@@ -23,7 +23,7 @@ public class FileUtil {
     if (extensionAt < 1 || extensionAt == fileName.length()) {
       return "";
     }
-    return fileName.substring(extensionAt + 1);
+    return fileName.substring(extensionAt);
   }
 
   public static int indexOfExtension(Path filePath) {

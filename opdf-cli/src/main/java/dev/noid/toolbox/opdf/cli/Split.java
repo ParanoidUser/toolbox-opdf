@@ -3,8 +3,10 @@ package dev.noid.toolbox.opdf.cli;
 import dev.noid.toolbox.opdf.api.DataSink;
 import dev.noid.toolbox.opdf.api.DataSource;
 import dev.noid.toolbox.opdf.api.DataSplitter;
-import dev.noid.toolbox.opdf.common.FileSource;
-import dev.noid.toolbox.opdf.common.IncPostfixFileSink;
+import dev.noid.toolbox.opdf.io.FileUtil;
+import dev.noid.toolbox.opdf.io.NamingStrategy;
+import dev.noid.toolbox.opdf.io.FileSink;
+import dev.noid.toolbox.opdf.io.FileSource;
 import dev.noid.toolbox.opdf.spi.DataFactoryProvider;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -56,8 +58,17 @@ public class Split implements Runnable {
     }
 
     DataSource source = new FileSource(sourceFile);
-    DataSink sink = new IncPostfixFileSink(outputDirectory.resolve(sourceFile.getFileName()));
+    DataSink sink = getStreamSink(outputDirectory, sourceFile);
     DataSplitter splitter = DataFactoryProvider.getSplitterFactory().getSplitter();
     splitter.split(source, sink);
+  }
+
+  private DataSink getStreamSink(Path targetDir, Path sourceFile) {
+    String nameOnly = FileUtil.getNameWithoutExtension(sourceFile);
+    String filePath = targetDir.resolve(nameOnly).toString();
+    String extension = FileUtil.getExtension(sourceFile);
+
+    NamingStrategy naming = NamingStrategy.ordinary(filePath, extension);
+    return () -> new FileSink(Path.of(naming.getName())).getWriting();
   }
 }

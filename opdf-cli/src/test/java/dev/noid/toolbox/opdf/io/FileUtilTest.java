@@ -1,8 +1,7 @@
-package dev.noid.toolbox.opdf.core;
+package dev.noid.toolbox.opdf.io;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import dev.noid.toolbox.opdf.common.FileUtil;
 import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +18,6 @@ class FileUtilTest {
   void extract_file_extension() {
     var path = Path.of("dir1", "dir2", "file.txt");
     var name = FileUtil.getExtension(path);
-    assertEquals("txt", name);
+    assertEquals(".txt", name);
   }
 }

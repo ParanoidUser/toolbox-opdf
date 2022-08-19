@@ -23,7 +23,6 @@
   <modules>
     <module>opdf-api</module>
     <module>opdf-cli</module>
-    <module>opdf-common</module>
     <module>opdf-pdfbox</module>
   </modules>
 

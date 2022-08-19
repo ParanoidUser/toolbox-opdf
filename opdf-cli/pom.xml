@@ -17,7 +17,7 @@
   <dependencies>
     <dependency>
       <groupId>dev.noid.toolbox.opdf</groupId>
-      <artifactId>opdf-common</artifactId>
+      <artifactId>opdf-api</artifactId>
     </dependency>
     <dependency>
       <groupId>dev.noid.toolbox.opdf</groupId>
@@ -26,6 +26,11 @@
     <dependency>
       <groupId>info.picocli</groupId>
       <artifactId>picocli</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
