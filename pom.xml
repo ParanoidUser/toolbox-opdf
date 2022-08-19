@@ -24,6 +24,7 @@
     <module>opdf-api</module>
     <module>opdf-cli</module>
     <module>opdf-pdfbox</module>
+    <module>opdf-assembly</module>
   </modules>
 
   <dependencyManagement>
