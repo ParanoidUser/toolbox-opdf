@@ -27,19 +27,19 @@ class PdfBoxSplitterTest {
 
     splitter.split(twoPages, testSink);
 
-    assertEquals(2, testSink.size());
+    assertEquals(2, testSink.countWritings());
     assertEquals(1, PdfBoxUtil.getPageCount(testSink.getWritingBytes(0)));
     assertEquals(1, PdfBoxUtil.getPageCount(testSink.getWritingBytes(1)));
   }
 
   @Test
-  void split_output_has_constant_size() {
+  void split_result_has_concistent_size() {
     var twoPages = new TestSource("two-blank-pages.pdf");
     var testSink = new TestSink();
 
     splitter.split(twoPages, testSink);
 
-    assertEquals(2, testSink.size());
+    assertEquals(2, testSink.countWritings());
     assertEquals(833, testSink.getWritingBytes(0).length);
     assertEquals(833, testSink.getWritingBytes(1).length);
   }
@@ -51,7 +51,7 @@ class PdfBoxSplitterTest {
 
     splitter.split(twoPages, testSink);
 
-    assertEquals(2, testSink.size());
+    assertEquals(2, testSink.countWritings());
     verify(twoPages.getReadingRef(), times(1)).close();
     // closed explicitly by the merger and implicitly by PDF box
     verify(testSink.getWritingRef(0), times(2)).close();

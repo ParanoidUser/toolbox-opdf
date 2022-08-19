@@ -18,7 +18,7 @@ public class TestSink implements DataSink {
     return stream;
   }
 
-  int size() {
+  int countWritings() {
     return writings.size();
   }
 
