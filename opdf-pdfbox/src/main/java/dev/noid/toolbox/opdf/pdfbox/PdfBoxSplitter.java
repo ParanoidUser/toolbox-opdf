@@ -20,13 +20,11 @@ public class PdfBoxSplitter implements DataSplitter {
 
   @Override
   public void split(DataSource source, DataSink sink) {
-    List<PDDocument> pages = splitByPages(source);
-    pages.forEach(page -> savePage(page, sink));
-  }
-
-  private List<PDDocument> splitByPages(DataSource source) {
     try (var stream = source.getReading(); var document = PDDocument.load(stream, memorySetting)) {
-      return docSplitter.split(document);
+      List<PDDocument> pages = docSplitter.split(document);
+      for (PDDocument page : pages) {
+        savePage(page, sink);
+      }
     } catch (Exception cause) {
       throw new IllegalArgumentException("Cannot split document", cause);
     }
