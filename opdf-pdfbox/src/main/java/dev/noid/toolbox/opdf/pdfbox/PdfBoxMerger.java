@@ -14,7 +14,7 @@ public class PdfBoxMerger implements DataMerger {
   private final PDFMergerUtility docMerger;
   private final MemoryUsageSetting memorySettings;
 
-  public PdfBoxMerger(PDFMergerUtility docMerger, MemoryUsageSetting memorySettings) {
+  PdfBoxMerger(PDFMergerUtility docMerger, MemoryUsageSetting memorySettings) {
     this.docMerger = docMerger;
     this.memorySettings = memorySettings;
   }
