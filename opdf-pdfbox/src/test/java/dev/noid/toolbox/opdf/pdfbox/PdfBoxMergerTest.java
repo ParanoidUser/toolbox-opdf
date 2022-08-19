@@ -23,10 +23,11 @@ class PdfBoxMergerTest {
 
   @Test
   void merge_two_document_copies_into_one() {
-    var onePage = new TestSource("one-blank-page.pdf");
+    var page1 = new TestSource("text-page-1.pdf");
+    var page2 = new TestSource("text-page-2.pdf");
     var testSink = new TestSink();
 
-    merger.merge(List.of(onePage, onePage), testSink);
+    merger.merge(List.of(page1, page2), testSink);
 
     assertEquals(1, testSink.countWritings());
     assertEquals(2, PdfBoxUtil.getPageCount(testSink.getWritingBytes(0)));
@@ -34,24 +35,27 @@ class PdfBoxMergerTest {
 
   @Test
   void merge_result_has_concistent_size() {
-    var onePage = new TestSource("one-blank-page.pdf");
+    var page1 = new TestSource("text-page-1.pdf");
+    var page2 = new TestSource("text-page-2.pdf");
     var testSink = new TestSink();
 
-    merger.merge(List.of(onePage, onePage), testSink);
+    merger.merge(List.of(page1, page2), testSink);
 
     assertEquals(1, testSink.countWritings());
-    assertEquals(1291, testSink.getWritingBytes(0).length);
+    assertEquals(2138, testSink.getWritingBytes(0).length);
   }
 
   @Test
   void merge_closes_all_resources() throws Exception {
-    var onePage = new TestSource("one-blank-page.pdf");
+    var page1 = new TestSource("text-page-1.pdf");
+    var page2 = new TestSource("text-page-2.pdf");
     var testSink = new TestSink();
 
-    merger.merge(List.of(onePage, onePage), testSink);
+    merger.merge(List.of(page1, page2), testSink);
 
     assertEquals(1, testSink.countWritings());
-    verify(onePage.getReadingRef(), times(1)).close();
+    verify(page1.getReadingRef(), times(1)).close();
+    verify(page2.getReadingRef(), times(1)).close();
     // closed explicitly by the merger and implicitly by PDF box
     verify(testSink.getWritingRef(0), times(2)).close();
   }
