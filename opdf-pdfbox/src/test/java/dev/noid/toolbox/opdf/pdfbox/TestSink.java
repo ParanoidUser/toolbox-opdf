@@ -2,31 +2,38 @@ package dev.noid.toolbox.opdf.pdfbox;
 
 import dev.noid.toolbox.opdf.api.DataSink;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.LinkedList;
-import org.mockito.Mockito;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class TestSink implements DataSink {
 
   private final LinkedList<ByteArrayOutputStream> writings = new LinkedList<>();
+  private final AtomicInteger closeCount = new AtomicInteger();
 
   @Override
   public OutputStream getWriting() {
-    var stream = new ByteArrayOutputStream();
-    stream = Mockito.spy(stream);
+    var stream = new ByteArrayOutputStream() {
+      @Override
+      public void close() throws IOException {
+        super.close();
+        closeCount.incrementAndGet();
+      }
+    };
     writings.add(stream);
     return stream;
   }
 
-  int countWritings() {
+  int getWritingCalls() {
     return writings.size();
   }
 
-  OutputStream getWritingRef(int index) {
-    return writings.get(index);
+  int getCloseCalls() {
+    return closeCount.get();
   }
 
-  byte[] getWritingBytes(int index) {
+  byte[] getBytesWritten(int index) {
     return writings.get(index).toByteArray();
   }
 }

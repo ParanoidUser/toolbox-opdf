@@ -1,16 +1,19 @@
 package dev.noid.toolbox.opdf.pdfbox;
 
 import dev.noid.toolbox.opdf.api.DataSource;
+import java.io.BufferedInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
-import org.mockito.Mockito;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class TestSource implements DataSource {
 
   private final String resourceName;
-  private InputStream readingRef;
+  private final AtomicInteger readingCount = new AtomicInteger();
+  private final AtomicInteger closeCount = new AtomicInteger();
 
-  public TestSource(String resourceName) {
+  TestSource(String resourceName) {
     this.resourceName = resourceName;
   }
 
@@ -18,11 +21,21 @@ public class TestSource implements DataSource {
   public InputStream getReading() {
     var stream = getClass().getClassLoader().getResourceAsStream(resourceName);
     Objects.requireNonNull(stream, "Test resource not found: " + resourceName);
-    readingRef = Mockito.spy(stream);
-    return readingRef;
+    readingCount.incrementAndGet();
+    return new BufferedInputStream(stream) {
+      @Override
+      public void close() throws IOException {
+        super.close();
+        closeCount.incrementAndGet();
+      }
+    };
   }
 
-  InputStream getReadingRef() {
-    return readingRef;
+  int getReadingCalls() {
+    return readingCount.get();
+  }
+
+  int getCloseCalls() {
+    return closeCount.get();
   }
 }

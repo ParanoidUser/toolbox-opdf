@@ -1,8 +1,6 @@
 package dev.noid.toolbox.opdf.pdfbox;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 import java.util.List;
 import org.apache.pdfbox.io.MemoryUsageSetting;
@@ -30,9 +28,9 @@ class PdfBoxSplitterTest {
 
     splitter.split(twoPages, testSink);
 
-    assertEquals(2, testSink.countWritings());
-    assertEquals(1, PdfBoxUtil.getPageCount(testSink.getWritingBytes(0)));
-    assertEquals(1, PdfBoxUtil.getPageCount(testSink.getWritingBytes(1)));
+    assertEquals(2, testSink.getWritingCalls());
+    assertEquals(1, PdfBoxUtil.getPageCount(testSink.getBytesWritten(0)));
+    assertEquals(1, PdfBoxUtil.getPageCount(testSink.getBytesWritten(1)));
   }
 
   @Test
@@ -43,9 +41,9 @@ class PdfBoxSplitterTest {
 
     splitter.split(twoPages, testSink);
 
-    assertEquals(2, testSink.countWritings());
-    assertEquals(1245, testSink.getWritingBytes(0).length);
-    assertEquals(1208, testSink.getWritingBytes(1).length);
+    assertEquals(2, testSink.getWritingCalls());
+    assertEquals(1245, testSink.getBytesWritten(0).length);
+    assertEquals(1208, testSink.getBytesWritten(1).length);
   }
 
   @Test
@@ -55,11 +53,10 @@ class PdfBoxSplitterTest {
 
     splitter.split(twoPages, testSink);
 
-    assertEquals(2, testSink.countWritings());
-    verify(twoPages.getReadingRef(), times(1)).close();
+    assertEquals(1, twoPages.getCloseCalls());
+    assertEquals(2, testSink.getWritingCalls());
     // closed explicitly by the merger and implicitly by PDF box
-    verify(testSink.getWritingRef(0), times(2)).close();
-    verify(testSink.getWritingRef(1), times(2)).close();
+    assertEquals(4, testSink.getCloseCalls());
   }
 
   @Test
@@ -74,9 +71,9 @@ class PdfBoxSplitterTest {
         68643, 96934, 50784, 141184, 107684, 67333, 94891, 132892, 168068, 143445, 102770,
         144425, 111671, 113513, 104010, 148316, 104181, 140941, 202150, 97582, 94488, 50652
     );
-    assertEquals(knownPageSizes.size(), testSink.countWritings());
+    assertEquals(knownPageSizes.size(), testSink.getWritingCalls());
     for (int i = 0; i < knownPageSizes.size(); i++) {
-      assertEquals(knownPageSizes.get(i), testSink.getWritingBytes(i).length);
+      assertEquals(knownPageSizes.get(i), testSink.getBytesWritten(i).length);
     }
   }
 }
