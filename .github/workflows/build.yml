@@ -7,7 +7,13 @@ on:
 
 jobs:
   build:
-    runs-on: macos-12
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        java: [ 8, 11, 17 ]
+
     permissions:
       actions: read
       contents: read
@@ -21,7 +27,7 @@ jobs:
         uses: actions/setup-java@v3.1.1
         with:
           distribution: adopt
-          java-version: 11
+          java-version: ${{ matrix.java }}
           cache: maven
 
       - name: Initialize CodeQL
