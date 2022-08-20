@@ -12,15 +12,15 @@ public class PdfBoxDataFactory implements DataMergerFactory, DataSplitterFactory
 
   @Override
   public DataMerger getMerger() {
-    var pdfMerger = new PDFMergerUtility();
-    var inMemory = MemoryUsageSetting.setupMainMemoryOnly();
+    PDFMergerUtility pdfMerger = new PDFMergerUtility();
+    MemoryUsageSetting inMemory = MemoryUsageSetting.setupMainMemoryOnly();
     return new PdfBoxMerger(pdfMerger, inMemory);
   }
 
   @Override
   public DataSplitter getSplitter() {
-    var pdfSplitter = new Splitter();
-    var inMemory = MemoryUsageSetting.setupMainMemoryOnly();
+    Splitter pdfSplitter = new Splitter();
+    MemoryUsageSetting inMemory = MemoryUsageSetting.setupMainMemoryOnly();
     return new PdfBoxSplitter(pdfSplitter, inMemory);
   }
 }

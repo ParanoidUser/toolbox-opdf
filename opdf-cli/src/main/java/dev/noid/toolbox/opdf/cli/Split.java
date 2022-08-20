@@ -10,6 +10,7 @@ import dev.noid.toolbox.opdf.io.FileSource;
 import dev.noid.toolbox.opdf.spi.DataFactoryProvider;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Model.CommandSpec;
 import picocli.CommandLine.Option;
@@ -69,6 +70,6 @@ public class Split implements Runnable {
     String extension = FileUtil.getExtension(sourceFile);
 
     NamingStrategy naming = NamingStrategy.ordinary(filePath, extension);
-    return () -> new FileSink(Path.of(naming.getName())).getWriting();
+    return () -> new FileSink(Paths.get(naming.getName())).getWriting();
   }
 }

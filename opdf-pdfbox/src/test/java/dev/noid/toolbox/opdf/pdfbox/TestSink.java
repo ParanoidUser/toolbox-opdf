@@ -14,7 +14,7 @@ public class TestSink implements DataSink {
 
   @Override
   public OutputStream getWriting() {
-    var stream = new ByteArrayOutputStream() {
+    ByteArrayOutputStream stream = new ByteArrayOutputStream() {
       @Override
       public void close() throws IOException {
         super.close();

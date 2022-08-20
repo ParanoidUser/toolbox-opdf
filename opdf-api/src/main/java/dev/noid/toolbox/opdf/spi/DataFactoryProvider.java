@@ -1,5 +1,6 @@
 package dev.noid.toolbox.opdf.spi;
 
+import java.util.Iterator;
 import java.util.ServiceLoader;
 
 public final class DataFactoryProvider {
@@ -13,9 +14,10 @@ public final class DataFactoryProvider {
   }
 
   private static <T> T getDataFactory(Class<T> type) {
-    return ServiceLoader.load(type)
-        .findFirst()
-        .orElseThrow(() -> new NoClassDefFoundError(
-            "Cannot find any implementations of factory class: " + type));
+    Iterator<T> iterator = ServiceLoader.load(type).iterator();
+    if (!iterator.hasNext()) {
+      throw new NoClassDefFoundError("Cannot find any implementations of factory class: " + type);
+    }
+    return iterator.next();
   }
 }

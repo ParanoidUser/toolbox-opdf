@@ -19,7 +19,7 @@ public class TestSource implements DataSource {
 
   @Override
   public InputStream getReading() {
-    var stream = getClass().getClassLoader().getResourceAsStream(resourceName);
+    InputStream stream = getClass().getClassLoader().getResourceAsStream(resourceName);
     Objects.requireNonNull(stream, "Test resource not found: " + resourceName);
     readingCount.incrementAndGet();
     return new BufferedInputStream(stream) {

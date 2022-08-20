@@ -2,7 +2,7 @@ package dev.noid.toolbox.opdf.pdfbox;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.List;
+import java.util.Arrays;
 import org.apache.pdfbox.io.MemoryUsageSetting;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,18 +14,18 @@ class PdfBoxMergerTest {
 
   @BeforeEach
   void setUp() {
-    var pdfMerger = new PDFMergerUtility();
-    var inMemory = MemoryUsageSetting.setupMainMemoryOnly();
+    PDFMergerUtility pdfMerger = new PDFMergerUtility();
+    MemoryUsageSetting inMemory = MemoryUsageSetting.setupMainMemoryOnly();
     merger = new PdfBoxMerger(pdfMerger, inMemory);
   }
 
   @Test
   void merge_two_document_copies_into_one() {
-    var page1 = new TestSource("text-page-1.pdf");
-    var page2 = new TestSource("text-page-2.pdf");
-    var testSink = new TestSink();
+    TestSource page1 = new TestSource("text-page-1.pdf");
+    TestSource page2 = new TestSource("text-page-2.pdf");
+    TestSink testSink = new TestSink();
 
-    merger.merge(List.of(page1, page2), testSink);
+    merger.merge(Arrays.asList(page1, page2), testSink);
 
     assertEquals(1, testSink.getWritingCalls());
     assertEquals(2, PdfBoxUtil.getPageCount(testSink.getBytesWritten(0)));
@@ -33,11 +33,11 @@ class PdfBoxMergerTest {
 
   @Test
   void merge_result_has_concistent_size() {
-    var page1 = new TestSource("text-page-1.pdf");
-    var page2 = new TestSource("text-page-2.pdf");
-    var testSink = new TestSink();
+    TestSource page1 = new TestSource("text-page-1.pdf");
+    TestSource page2 = new TestSource("text-page-2.pdf");
+    TestSink testSink = new TestSink();
 
-    merger.merge(List.of(page1, page2), testSink);
+    merger.merge(Arrays.asList(page1, page2), testSink);
 
     assertEquals(1, testSink.getWritingCalls());
     assertEquals(2138, testSink.getBytesWritten(0).length);
@@ -45,14 +45,18 @@ class PdfBoxMergerTest {
 
   @Test
   void merge_closes_all_resources() {
-    var page1 = new TestSource("text-page-1.pdf");
-    var page2 = new TestSource("text-page-2.pdf");
-    var testSink = new TestSink();
+    TestSource page1 = new TestSource("text-page-1.pdf");
+    TestSource page2 = new TestSource("text-page-2.pdf");
+    TestSink testSink = new TestSink();
 
-    merger.merge(List.of(page1, page2), testSink);
+    merger.merge(Arrays.asList(page1, page2), testSink);
 
+    assertEquals(1, page1.getReadingCalls());
     assertEquals(1, page1.getCloseCalls());
+
+    assertEquals(1, page2.getReadingCalls());
     assertEquals(1, page2.getCloseCalls());
+
     assertEquals(1, testSink.getWritingCalls());
     // closed explicitly by the merger and implicitly by PDF box
     assertEquals(2, testSink.getCloseCalls());

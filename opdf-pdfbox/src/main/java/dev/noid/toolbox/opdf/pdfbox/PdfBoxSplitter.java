@@ -3,6 +3,8 @@ package dev.noid.toolbox.opdf.pdfbox;
 import dev.noid.toolbox.opdf.api.DataSink;
 import dev.noid.toolbox.opdf.api.DataSource;
 import dev.noid.toolbox.opdf.api.DataSplitter;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 import org.apache.pdfbox.io.MemoryUsageSetting;
 import org.apache.pdfbox.multipdf.Splitter;
@@ -20,10 +22,15 @@ public class PdfBoxSplitter implements DataSplitter {
 
   @Override
   public void split(DataSource source, DataSink sink) {
-    try (var stream = source.getReading(); var document = PDDocument.load(stream, memorySetting)) {
+    try (InputStream stream = source.getReading(); PDDocument document = PDDocument.load(stream, memorySetting)) {
       List<PDDocument> pages = docSplitter.split(document);
       for (PDDocument page : pages) {
         savePage(page, sink);
+        try {
+          page.close();
+        } catch (Exception ignore) {
+
+        }
       }
     } catch (Exception cause) {
       throw new IllegalArgumentException("Cannot split document", cause);
@@ -31,7 +38,7 @@ public class PdfBoxSplitter implements DataSplitter {
   }
 
   private void savePage(PDDocument page, DataSink sink) {
-    try (var stream = sink.getWriting(); page) {
+    try (OutputStream stream = sink.getWriting()) {
       page.save(stream);
     } catch (Exception ignore) {
       // keep saving other pages

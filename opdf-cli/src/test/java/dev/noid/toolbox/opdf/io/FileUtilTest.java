@@ -3,21 +3,22 @@ package dev.noid.toolbox.opdf.io;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
 class FileUtilTest {
 
   @Test
   void extract_file_name_without_extension() {
-    var path = Path.of("dir1", "dir2", "file.txt");
-    var name = FileUtil.getNameWithoutExtension(path);
+    Path path = Paths.get("dir1", "dir2", "file.txt");
+    String name = FileUtil.getNameWithoutExtension(path);
     assertEquals("file", name);
   }
 
   @Test
   void extract_file_extension() {
-    var path = Path.of("dir1", "dir2", "file.txt");
-    var name = FileUtil.getExtension(path);
+    Path path = Paths.get("dir1", "dir2", "file.txt");
+    String name = FileUtil.getExtension(path);
     assertEquals(".txt", name);
   }
 }

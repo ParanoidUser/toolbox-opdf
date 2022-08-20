@@ -4,6 +4,7 @@ import dev.noid.toolbox.opdf.api.DataMerger;
 import dev.noid.toolbox.opdf.api.DataSink;
 import dev.noid.toolbox.opdf.api.DataSource;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.LinkedList;
 import java.util.List;
 import org.apache.pdfbox.io.MemoryUsageSetting;
@@ -21,7 +22,7 @@ public class PdfBoxMerger implements DataMerger {
 
   @Override
   public void merge(Iterable<DataSource> sources, DataSink sink) {
-    var openedStreams = addAllSources(sources);
+    List<InputStream> openedStreams = addAllSources(sources);
     try {
       mergeSources(sink);
     } finally {
@@ -30,10 +31,10 @@ public class PdfBoxMerger implements DataMerger {
   }
 
   private List<InputStream> addAllSources(Iterable<DataSource> sources) {
-    var openedStreams = new LinkedList<InputStream>();
-    for (var source : sources) {
+    LinkedList<InputStream> openedStreams = new LinkedList<>();
+    for (DataSource source : sources) {
       try {
-        var stream = source.getReading();
+        InputStream stream = source.getReading();
         openedStreams.add(stream);
         docMerger.addSource(stream);
       } catch (Exception cause) {
@@ -45,7 +46,7 @@ public class PdfBoxMerger implements DataMerger {
   }
 
   private void mergeSources(DataSink sink) {
-    try (var stream = sink.getWriting()) {
+    try (OutputStream stream = sink.getWriting()) {
       docMerger.setDestinationStream(stream);
       docMerger.mergeDocuments(memorySettings);
     } catch (Exception cause) {
@@ -54,7 +55,7 @@ public class PdfBoxMerger implements DataMerger {
   }
 
   private void closeAllSilently(List<InputStream> streams) {
-    for (var stream : streams) {
+    for (InputStream stream : streams) {
       try {
         stream.close();
       } catch (Exception ignore) {

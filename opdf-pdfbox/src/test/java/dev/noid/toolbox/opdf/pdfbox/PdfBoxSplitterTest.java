@@ -2,6 +2,7 @@ package dev.noid.toolbox.opdf.pdfbox;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Arrays;
 import java.util.List;
 import org.apache.pdfbox.io.MemoryUsageSetting;
 import org.apache.pdfbox.multipdf.Splitter;
@@ -16,15 +17,15 @@ class PdfBoxSplitterTest {
 
   @BeforeEach
   void setUp() {
-    var pdfSplitter = new Splitter();
-    var inMemory = MemoryUsageSetting.setupMainMemoryOnly();
+    Splitter pdfSplitter = new Splitter();
+    MemoryUsageSetting inMemory = MemoryUsageSetting.setupMainMemoryOnly();
     splitter = new PdfBoxSplitter(pdfSplitter, inMemory);
   }
 
   @Test
   void split_document_into_two_pages() {
-    var twoPages = new TestSource("two-text-pages.pdf");
-    var testSink = new TestSink();
+    TestSource twoPages = new TestSource("two-text-pages.pdf");
+    TestSink testSink = new TestSink();
 
     splitter.split(twoPages, testSink);
 
@@ -36,8 +37,8 @@ class PdfBoxSplitterTest {
   @Test
   @EnabledOnOs(value = OS.WINDOWS, disabledReason = "on Unix final size is few bytes less")
   void split_result_has_concistent_size() {
-    var twoPages = new TestSource("two-text-pages.pdf");
-    var testSink = new TestSink();
+    TestSource twoPages = new TestSource("two-text-pages.pdf");
+    TestSink testSink = new TestSink();
 
     splitter.split(twoPages, testSink);
 
@@ -47,13 +48,15 @@ class PdfBoxSplitterTest {
   }
 
   @Test
-  void split_closes_all_resources() throws Exception {
-    var twoPages = new TestSource("two-text-pages.pdf");
-    var testSink = new TestSink();
+  void split_closes_all_resources() {
+    TestSource twoPages = new TestSource("two-text-pages.pdf");
+    TestSink testSink = new TestSink();
 
     splitter.split(twoPages, testSink);
 
+    assertEquals(1, twoPages.getReadingCalls());
     assertEquals(1, twoPages.getCloseCalls());
+
     assertEquals(2, testSink.getWritingCalls());
     // closed explicitly by the merger and implicitly by PDF box
     assertEquals(4, testSink.getCloseCalls());
@@ -62,12 +65,12 @@ class PdfBoxSplitterTest {
   @Test
   @EnabledOnOs(value = OS.WINDOWS, disabledReason = "on Unix final size is few bytes less")
   void split_complex_document() {
-    var multiPage = new TestSource("wfrw-ii-figures-and-tables.pdf");
-    var testSink = new TestSink();
+    TestSource multiPage = new TestSource("wfrw-ii-figures-and-tables.pdf");
+    TestSink testSink = new TestSink();
 
     splitter.split(multiPage, testSink);
 
-    var knownPageSizes = List.of(
+    List<Integer> knownPageSizes = Arrays.asList(
         68643, 96934, 50784, 141184, 107684, 67333, 94891, 132892, 168068, 143445, 102770,
         144425, 111671, 113513, 104010, 148316, 104181, 140941, 202150, 97582, 94488, 50652
     );
