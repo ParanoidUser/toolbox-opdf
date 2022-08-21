@@ -67,12 +67,16 @@ jobs:
             os_name: windows
 
     steps:
-      - uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741
+      - name: Download artifacts
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741
         with:
           name: opdf
 
-      - name: Display structure of downloaded files
-        run: ls -R
+      - name: Setup Java
+        uses: actions/setup-java@9519cf1382ac8dc61ad461f7f7cb45f033220189
+        with:
+          distribution: adopt
+          java-version: ${{ matrix.java-version }}
 
       - name: Setup GraalVM
         uses: graalvm/setup-graalvm@e82ef137ecc5af894d22d4a80243e3a057b5cc7f
