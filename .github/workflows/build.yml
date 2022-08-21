@@ -2,8 +2,7 @@ name: CI
 
 on:
   push:
-    branches-ignore:
-      - dependabot/**
+    branches-ignore: [dependabot/**, native]
   pull_request:
   workflow_dispatch:
 
