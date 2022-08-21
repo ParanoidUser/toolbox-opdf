@@ -2,12 +2,12 @@ name: CI
 
 on:
   push:
-    branches-ignore: [dependabot/**, native]
+    branches-ignore: [ dependabot/**, native ]
   pull_request:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-project:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -48,3 +48,45 @@ jobs:
         with:
           name: opdf
           path: opdf-assembly/target/opdf-*.jar
+
+  build-native:
+    runs-on: ${{ matrix.os }}
+    needs: build-project
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        graalvm-version: [ 22.2.0 ]
+        java-version: [ 11 ]
+        include:
+          - os: ubuntu-latest
+            os_name: linux
+          - os: macos-latest
+            os_name: macos
+          - os: windows-latest
+            os_name: windows
+
+    steps:
+      - uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741
+        with:
+          name: opdf
+
+      - name: Display structure of downloaded files
+        run: ls -R
+
+      - name: Setup GraalVM
+        uses: graalvm/setup-graalvm@e82ef137ecc5af894d22d4a80243e3a057b5cc7f
+        with:
+          version: ${{ matrix.graalvm-version }}
+          java-version: ${{ matrix.java-version }}
+          components: native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build native image
+        run: native-image -jar opdf.jar
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8
+        with:
+          name: opdf-${{ matrix.os_name }}
+          path: .
