@@ -40,11 +40,6 @@
       </dependency>
       <dependency>
         <groupId>dev.noid.toolbox.opdf</groupId>
-        <artifactId>opdf-common</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>dev.noid.toolbox.opdf</groupId>
         <artifactId>opdf-pdfbox</artifactId>
         <version>${project.version}</version>
       </dependency>
