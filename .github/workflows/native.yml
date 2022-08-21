@@ -17,6 +17,13 @@ jobs:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
         graalvm-version: [ '22.2.0' ]
         java-version: [ '11' ]
+        include:
+          - os: ubuntu-latest
+            os_name: 'linux'
+          - os: macos-latest
+            os_name: 'macos'
+          - os: windows-latest
+            os_name: 'windows'
 
     steps:
       - name: Checkout repository
@@ -44,4 +51,10 @@ jobs:
         run: ./mvnw package
 
       - name: Build native image
-        run: native-image -jar ./opdf-assembly/target/opdf-1.0.0.jar
+        run: native-image -jar ./opdf-assembly/target/opdf.jar
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8
+        with:
+          name: opdf-${{ os_name }}
+          path: .

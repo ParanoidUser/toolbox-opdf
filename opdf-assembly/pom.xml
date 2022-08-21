@@ -14,10 +14,6 @@
   <packaging>pom</packaging>
   <name>Open PDF Tool :: Assembly</name>
 
-  <properties>
-    <distName>opdf-${project.version}</distName>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>dev.noid.toolbox.opdf</groupId>
@@ -53,7 +49,7 @@
               <descriptorRefs>
                 <descriptorRef>jar-with-dependencies</descriptorRef>
               </descriptorRefs>
-              <finalName>${distName}</finalName>
+              <finalName>opdf</finalName>
               <appendAssemblyId>false</appendAssemblyId>
             </configuration>
           </execution>
