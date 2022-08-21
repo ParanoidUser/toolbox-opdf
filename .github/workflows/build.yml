@@ -72,18 +72,12 @@ jobs:
         with:
           name: opdf
 
-      - name: Setup Java
-        uses: actions/setup-java@9519cf1382ac8dc61ad461f7f7cb45f033220189
-        with:
-          distribution: adopt
-          java-version: ${{ matrix.java-version }}
-
       - name: Setup GraalVM
         uses: graalvm/setup-graalvm@e82ef137ecc5af894d22d4a80243e3a057b5cc7f
         with:
           version: ${{ matrix.graalvm-version }}
           java-version: ${{ matrix.java-version }}
-          components: native-image'
+          components: native-image
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build native image
