@@ -1,0 +1,47 @@
+name: Native CI
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pipeline:
+    runs-on: ${{ matrix.os }}
+    if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.pull_request.title, '[skip ci]') && !contains(github.event.pull_request.title, '[ci skip]')"
+    defaults:
+      run:
+        shell: bash
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        graalvm-version: [ '22.2.0' ]
+        java-version: [ '11' ]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+
+      - name: Setup Java
+        uses: actions/setup-java@9519cf1382ac8dc61ad461f7f7cb45f033220189
+        with:
+          distribution: adopt
+          java-version: '${{ matrix.java-version }}'
+          cache: maven
+
+      - name: Setup GraalVM
+        uses: graalvm/setup-graalvm@e82ef137ecc5af894d22d4a80243e3a057b5cc7f
+        with:
+          version: '${{ matrix.graalvm-version }}'
+          java-version: '${{ matrix.java-version }}'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build with Maven
+        run: ./mvnw package
+
+      - name: Build native image
+        run: native-image -jar ./opdf-assembly/target/opdf-1.0.0.jar
