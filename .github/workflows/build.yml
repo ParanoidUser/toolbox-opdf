@@ -23,6 +23,9 @@ jobs:
           distribution: adopt
           java-version: ${{ matrix.java }}
           cache: maven
+      - name: Executable Maven Wrapper
+        if: contains(matrix.os, 'win') == false
+        run: chmod +x ./mvnw
       - name: Test project
         run: ./mvnw test
 
@@ -47,6 +50,8 @@ jobs:
         with:
           languages: java
           queries: security-and-quality
+      - name: Executable Maven Wrapper
+        run: chmod +x ./mvnw
       - name: Compile project
         run: ./mvnw compile
       - name: Perform CodeQL Analysis
@@ -64,6 +69,8 @@ jobs:
           distribution: adopt
           java-version: 11
           cache: maven
+      - name: Executable Maven Wrapper
+        run: chmod +x ./mvnw
       - name: Package project
         run: ./mvnw package -Passembly -DskipTests
       - name: Upload artifacts
