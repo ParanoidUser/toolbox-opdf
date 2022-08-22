@@ -109,7 +109,7 @@ jobs:
           java-version: 11
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Build native image
-        run: native-image --verbose --report-unsupported-elements-at-runtime -J-Xmx8g -jar opdf.jar
+        run: native-image --verbose --no-fallback --report-unsupported-elements-at-runtime -J-Xmx8g -jar opdf.jar
       - name: Upload artifacts
         uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8
         with:
