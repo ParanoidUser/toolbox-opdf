@@ -23,8 +23,16 @@
     <module>opdf-api</module>
     <module>opdf-cli</module>
     <module>opdf-pdfbox</module>
-    <module>opdf-assembly</module>
   </modules>
+
+  <profiles>
+    <profile>
+      <id>assembly</id>
+      <modules>
+        <module>opdf-assembly</module>
+      </modules>
+    </profile>
+  </profiles>
 
   <dependencyManagement>
     <dependencies>
