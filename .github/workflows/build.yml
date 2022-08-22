@@ -78,7 +78,7 @@ jobs:
         with:
           components: native-image
           version: dev
-          java-version: 17
+          java-version: 11
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build native image
