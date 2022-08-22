@@ -40,7 +40,6 @@
             <configuration>
               <archive>
                 <manifest>
-                  <addClasspath>true</addClasspath>
                   <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                   <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                   <mainClass>dev.noid.toolbox.opdf.cli.Opdf</mainClass>
