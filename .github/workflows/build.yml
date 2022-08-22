@@ -46,7 +46,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8
         with:
-          name: opdf
+          name: opdf-jar
           path: opdf-assembly/target/opdf.jar
 
   build-native:
@@ -56,28 +56,29 @@ jobs:
       fail-fast: false
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
-        graalvm-version: [ 22.2.0 ]
-        java-version: [ 11 ]
         include:
           - os: ubuntu-latest
-            os_name: linux
+            artifact_name: opdf
+            package_name: opdf-linux
           - os: macos-latest
-            os_name: macos
+            artifact_name: opdf
+            package_name: opdf-macos
           - os: windows-latest
-            os_name: windows
+            artifact_name: opdf.exe
+            package_name: opdf-windows
 
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741
         with:
-          name: opdf
+          name: opdf-jar
 
       - name: Setup GraalVM
         uses: graalvm/setup-graalvm@e82ef137ecc5af894d22d4a80243e3a057b5cc7f
         with:
-          version: ${{ matrix.graalvm-version }}
-          java-version: ${{ matrix.java-version }}
           components: native-image
+          version: latest
+          java-version: 17
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build native image
@@ -86,5 +87,5 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8
         with:
-          name: opdf-${{ matrix.os_name }}
-          path: .
+          name: ${{ matrix.package_name }}
+          path: ${{ matrix.artifact_name }}
