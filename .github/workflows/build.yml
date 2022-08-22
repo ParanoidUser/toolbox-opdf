@@ -33,7 +33,7 @@ jobs:
           cache: maven
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@f5d217be74900c6ac8fbbe53f3c10376ba4e64da
+        uses: github/codeql-action/init@7fee4ca032ac341c12486c4c06822c5221c76533
         with:
           languages: java
           queries: security-and-quality
@@ -42,7 +42,7 @@ jobs:
         run: ./mvnw package
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@f5d217be74900c6ac8fbbe53f3c10376ba4e64da
+        uses: github/codeql-action/analyze@7fee4ca032ac341c12486c4c06822c5221c76533
 
       - name: Upload artifacts
         uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8
