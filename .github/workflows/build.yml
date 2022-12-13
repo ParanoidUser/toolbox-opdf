@@ -28,7 +28,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@de1bb2b0c5634f0fc4438d7aa9944e68f9bf86cc
         with:
-          distribution: adopt
+          distribution: temurin
           java-version: ${{ matrix.java }}
           cache: maven
 
