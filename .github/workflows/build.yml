@@ -26,7 +26,7 @@ jobs:
         uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b
 
       - name: Setup Java
-        uses: actions/setup-java@19eeec562b37d29a1ad055b7de9c280bd0906d8d
+        uses: actions/setup-java@de1bb2b0c5634f0fc4438d7aa9944e68f9bf86cc
         with:
           distribution: adopt
           java-version: ${{ matrix.java }}
