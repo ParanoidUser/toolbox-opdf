@@ -15,17 +15,8 @@ jobs:
         id: dependabot-metadata
         uses: dependabot/fetch-metadata@5ef00187930bafb52d529e0b9c3dff045dfa9851
 
-      - name: Auto-merge minor updates
+      - name: Enable auto-merge for minor updates
         if: ${{ steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major' }}
-        uses: actions/github-script@d556feaca394842dc55e4734bf3bb9f685482fa0
-        with:
-          script: |
-            const pullRequest = context.payload.workflow_run.pull_requests[0]
-            const repository = context.repo
-
-            await github.rest.pulls.merge({
-              repo: repository.repo,
-              pull_number: pullRequest.number,
-              merge_method: "squash",
-              owner: repository.owner
-            })
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr merge --auto --squash ${{ github.event.pull_request.html_url }}
