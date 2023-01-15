@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-22.04
     if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
     steps:
+      - name: Fetch Dependabot metadata
+        id: dependabot-metadata
+        uses: dependabot/fetch-metadata@5ef00187930bafb52d529e0b9c3dff045dfa9851
+
       - name: Auto-merge minor updates
         if: ${{ steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major' }}
         uses: actions/github-script@d556feaca394842dc55e4734bf3bb9f685482fa0
