@@ -46,7 +46,7 @@ jobs:
           java-version: 17
           cache: maven
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@f5d217be74900c6ac8fbbe53f3c10376ba4e64da
+        uses: github/codeql-action/init@3ebbd71c74ef574dbc558c82f70e52732c8b44fe
         with:
           languages: java
           queries: security-and-quality
@@ -55,7 +55,7 @@ jobs:
       - name: Compile project
         run: ./mvnw compile
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@f5d217be74900c6ac8fbbe53f3c10376ba4e64da
+        uses: github/codeql-action/analyze@3ebbd71c74ef574dbc558c82f70e52732c8b44fe
 
   package-jars:
     needs: quality-check
