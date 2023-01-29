@@ -15,7 +15,7 @@
     <encoding>utf-8</encoding>
     <java.version>8</java.version>
     <pdfbox.version>2.0.27</pdfbox.version>
-    <picocli.version>4.7.0</picocli.version>
+    <picocli.version>4.7.1</picocli.version>
     <junit.version>5.9.2</junit.version>
   </properties>
 
