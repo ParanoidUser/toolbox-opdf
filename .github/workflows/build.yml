@@ -105,7 +105,7 @@ jobs:
         uses: graalvm/setup-graalvm@b53bc17dd7dc3052d7c6751f6a5c34abdbf928b3
         with:
           components: native-image
-          version: 22.3.0
+          version: 22.3.1
           java-version: 17
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Build native image
