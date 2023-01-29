@@ -87,13 +87,13 @@ jobs:
       matrix:
         os: [ ubuntu-22.04, macos-12, windows-2022 ]
         include:
-          - os: ubuntu-latest
+          - os: ubuntu-22.04
             artifact_name: opdf
             package_name: opdf-linux
-          - os: macos-latest
+          - os: macos-12
             artifact_name: opdf
             package_name: opdf-macos
-          - os: windows-2019
+          - os: windows-2022
             artifact_name: opdf.exe
             package_name: opdf-windows
     steps:
