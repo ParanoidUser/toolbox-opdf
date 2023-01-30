@@ -6,7 +6,7 @@
 
   <groupId>dev.noid.toolbox.opdf</groupId>
   <artifactId>opdf-parent</artifactId>
-  <version>1.0.0</version>
+  <version>0.1.0</version>
 
   <packaging>pom</packaging>
   <name>Open PDF Tool :: Parent</name>
