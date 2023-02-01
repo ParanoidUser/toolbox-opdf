@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 
-import java.util.Arrays;
 import java.util.List;
 import org.apache.pdfbox.io.MemoryUsageSetting;
 import org.apache.pdfbox.multipdf.Splitter;
@@ -73,7 +72,7 @@ class PdfBoxSplitterTest {
 
     splitter.split(multiPage, testSink);
 
-    List<Integer> knownPageSizes = Arrays.asList(
+    List<Integer> knownPageSizes = List.of(
         68643, 96934, 50784, 141184, 107684, 67333, 94891, 132892, 168068, 143445, 102770,
         144425, 111671, 113513, 104010, 148316, 104181, 140941, 202150, 97582, 94488, 50652
     );

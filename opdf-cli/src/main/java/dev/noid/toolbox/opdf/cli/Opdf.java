@@ -13,7 +13,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Opdf {
@@ -33,14 +32,16 @@ public class Opdf {
   }
 
   private static void printHelp() {
-    String help = "Open PDF Tool\n"
-        + "\n"
-        + "Usage: opdf [COMMAND]\n"
-        + "Commands:\n"
-        + "  help     Displays help information about the specified command\n"
-        + "  version  Displays version information\n"
-        + "  merge    Merge several PDF files into one\n"
-        + "  split    Split one PDF file into pages";
+    String help = """
+        Open PDF Tool
+                
+        Usage: opdf [COMMAND]
+        Commands:
+          help     Displays help information about the specified command
+          version  Displays version information
+          merge    Merge several PDF files into one
+          split    Split one PDF file into pages
+          """;
     System.out.println(help);
   }
 
@@ -64,7 +65,7 @@ public class Opdf {
 
     Path outputFile = sourceDir.resolve("merged.pdf");
     try (Stream<Path> fileStream = Files.list(sourceDir)) {
-      List<DataSource> sources = fileStream.map(FileSource::new).collect(Collectors.toList());
+      List<FileSource> sources = fileStream.map(FileSource::new).toList();
       DataSink sink = new FileSink(outputFile);
 
       DataMerger merger = DataFactoryProvider.getMergerFactory().getMerger();

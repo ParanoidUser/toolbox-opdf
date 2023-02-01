@@ -26,10 +26,8 @@ public class PdfBoxSplitter implements DataSplitter {
     try (InputStream stream = source.getReading(); PDDocument document = PDDocument.load(stream, memorySetting)) {
       List<PDDocument> pages = docSplitter.split(document);
       for (PDDocument page : pages) {
-        try {
+        try (page) {
           savePage(page, sink);
-        } finally {
-          page.close();
         }
       }
     } catch (Exception cause) {
