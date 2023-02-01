@@ -20,4 +20,8 @@ public final class DataFactoryProvider {
     }
     return iterator.next();
   }
+
+  private DataFactoryProvider() {
+    throw new UnsupportedOperationException();
+  }
 }

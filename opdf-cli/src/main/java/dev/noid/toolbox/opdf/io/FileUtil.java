@@ -2,7 +2,7 @@ package dev.noid.toolbox.opdf.io;
 
 import java.nio.file.Path;
 
-public class FileUtil {
+public final class FileUtil {
 
   public static String getNameWithoutExtension(Path filePath) {
     Path file = filePath.getFileName();
@@ -29,5 +29,9 @@ public class FileUtil {
   public static int indexOfExtension(Path filePath) {
     String fileName = filePath.getFileName().toString();
     return fileName.lastIndexOf('.');
+  }
+
+  private FileUtil() {
+    throw new UnsupportedOperationException();
   }
 }
