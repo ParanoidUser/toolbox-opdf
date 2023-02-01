@@ -16,6 +16,7 @@
     <java.version>17</java.version>
     <pdfbox.version>2.0.29</pdfbox.version>
     <junit.version>5.9.3</junit.version>
+    <mockito.version>5.4.0</mockito.version>
   </properties>
 
   <modules>
@@ -59,6 +60,11 @@
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter</artifactId>
         <version>${junit.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-inline</artifactId>
+        <version>${mockito.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

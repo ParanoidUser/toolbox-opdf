@@ -1,6 +1,9 @@
 package dev.noid.toolbox.opdf.pdfbox;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 
 import java.util.Arrays;
 import java.util.List;
@@ -48,7 +51,7 @@ class PdfBoxSplitterTest {
   }
 
   @Test
-  void split_closes_all_resources() {
+  void split_closes_all_resources_when_succeed() {
     TestSource twoPages = new TestSource("two-text-pages.pdf");
     TestSink testSink = new TestSink();
 
@@ -78,5 +81,26 @@ class PdfBoxSplitterTest {
     for (int i = 0; i < knownPageSizes.size(); i++) {
       assertEquals(knownPageSizes.get(i), testSink.getBytesWritten(i).length);
     }
+  }
+
+  @Test
+  void split_error_when_document_missing() {
+    TestSource badSource = new TestSource("not-found.pdf");
+    TestSink testSink = new TestSink();
+
+    Exception error = assertThrows(IllegalArgumentException.class, () -> splitter.split(badSource, testSink));
+    assertEquals("Cannot split document", error.getMessage());
+    assertEquals("Test resource not found: not-found.pdf", error.getCause().getMessage());
+  }
+
+  @Test
+  void split_error_when_sink_failed() {
+    TestSource twoPages = new TestSource("two-text-pages.pdf");
+    TestSink badSink = mock(TestSink.class);
+    doThrow(new RuntimeException("Test sink problem")).when(badSink).getWriting();
+
+    Exception error = assertThrows(IllegalArgumentException.class, () -> splitter.split(twoPages, badSink));
+    assertEquals("Cannot split document", error.getMessage());
+    assertEquals("Test sink problem", error.getCause().getMessage());
   }
 }
