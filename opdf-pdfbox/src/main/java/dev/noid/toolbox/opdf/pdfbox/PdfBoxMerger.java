@@ -21,7 +21,7 @@ public class PdfBoxMerger implements DataMerger {
   }
 
   @Override
-  public void merge(Iterable<DataSource> sources, DataSink sink) {
+  public void merge(Iterable<? extends DataSource> sources, DataSink sink) {
     List<InputStream> openedStreams = addAllSources(sources);
     try {
       mergeSources(sink);
@@ -30,7 +30,7 @@ public class PdfBoxMerger implements DataMerger {
     }
   }
 
-  private List<InputStream> addAllSources(Iterable<DataSource> sources) {
+  private List<InputStream> addAllSources(Iterable<? extends DataSource> sources) {
     LinkedList<InputStream> openedStreams = new LinkedList<>();
     for (DataSource source : sources) {
       try {
