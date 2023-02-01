@@ -56,6 +56,14 @@ jobs:
         run: ./mvnw compile
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@3ebbd71c74ef574dbc558c82f70e52732c8b44fe
+      - name: Perform SonarCloud Analysis
+        run: |
+          ./mvnw verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          -Dsonar.host.url=https://sonarcloud.io
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          -Dsonar.organization=${{ secrets.SONAR_KEY }}
+          -Dsonar.branch.name=${{ github.event.inputs.ref_name || github.REF_NAME}}
+          -Dsonar.scm.disabled=true
 
   package-jars:
     needs: quality-check
