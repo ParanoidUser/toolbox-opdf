@@ -9,6 +9,8 @@ import dev.noid.toolbox.opdf.io.FileSource;
 import dev.noid.toolbox.opdf.io.FileUtil;
 import dev.noid.toolbox.opdf.io.NamingStrategy;
 import dev.noid.toolbox.opdf.spi.DataFactoryProvider;
+import dev.noid.toolbox.opdf.spi.DataMergerFactory;
+import dev.noid.toolbox.opdf.spi.DataSplitterFactory;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -54,7 +56,7 @@ public class Opdf {
     Path outputDirectory = sourceFile.getParent();
     DataSource source = new FileSource(sourceFile);
     DataSink sink = getStreamSink(outputDirectory, sourceFile);
-    DataSplitter splitter = DataFactoryProvider.getSplitterFactory().getSplitter();
+    DataSplitter splitter = DataFactoryProvider.getInstance(DataSplitterFactory.class).getSplitter();
     splitter.split(source, sink);
   }
 
@@ -68,7 +70,7 @@ public class Opdf {
       List<FileSource> sources = fileStream.map(FileSource::new).toList();
       DataSink sink = new FileSink(outputFile);
 
-      DataMerger merger = DataFactoryProvider.getMergerFactory().getMerger();
+      DataMerger merger = DataFactoryProvider.getInstance(DataMergerFactory.class).getMerger();
       merger.merge(sources, sink);
     } catch (Exception cause) {
       throw new IllegalArgumentException(cause);
