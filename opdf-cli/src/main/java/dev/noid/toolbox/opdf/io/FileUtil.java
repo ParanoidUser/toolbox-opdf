@@ -20,7 +20,7 @@ public final class FileUtil {
     String fileName = file.toString();
 
     int extensionAt = indexOfExtension(file);
-    if (extensionAt < 1 || extensionAt == fileName.length()) {
+    if (extensionAt < 1) {
       return "";
     }
     return fileName.substring(extensionAt);
