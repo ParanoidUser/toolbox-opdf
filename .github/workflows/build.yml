@@ -46,7 +46,7 @@ jobs:
           java-version: 17
           cache: maven
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@39d8d7e78f59cf6b40ac3b9fbebef0c753d7c9e5
+        uses: github/codeql-action/init@8775e868027fa230df8586bdf502bbd9b618a477
         with:
           languages: java
           queries: security-and-quality
@@ -55,7 +55,7 @@ jobs:
       - name: Compile project
         run: ./mvnw compile
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@39d8d7e78f59cf6b40ac3b9fbebef0c753d7c9e5
+        uses: github/codeql-action/analyze@8775e868027fa230df8586bdf502bbd9b618a477
       - name: Perform SonarCloud Analysis
         run: |
           ./mvnw verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
