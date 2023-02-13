@@ -110,7 +110,7 @@ jobs:
         with:
           name: opdf-jar
       - name: Setup GraalVM
-        uses: graalvm/setup-graalvm@b53bc17dd7dc3052d7c6751f6a5c34abdbf928b3
+        uses: graalvm/setup-graalvm@40947ba8cebbdc4eb823a8d7a7b56f113746f8f7
         with:
           components: native-image
           version: 22.3.1
