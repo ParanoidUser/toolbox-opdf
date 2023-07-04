@@ -112,9 +112,8 @@ jobs:
       - name: Setup GraalVM
         uses: graalvm/setup-graalvm@6acd592e3e981466c602dc54f0dae6c1a2556102
         with:
-          components: native-image
-          version: 22.3.1
           java-version: 17
+          distribution: graalvm
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Build native image
         run: native-image --no-fallback -H:+AddAllCharsets -jar opdf.jar
