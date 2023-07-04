@@ -33,8 +33,6 @@ jobs:
     needs: test-project
     runs-on: ubuntu-22.04
     permissions:
-      actions: read
-      contents: read
       security-events: write
     steps:
       - name: Checkout repository
