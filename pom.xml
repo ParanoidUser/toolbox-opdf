@@ -16,7 +16,7 @@
     <java.version>17</java.version>
     <pdfbox.version>2.0.29</pdfbox.version>
     <junit.version>5.9.3</junit.version>
-    <mockito.version>5.4.0</mockito.version>
+    <mockito.version>5.2.0</mockito.version>
   </properties>
 
   <modules>
