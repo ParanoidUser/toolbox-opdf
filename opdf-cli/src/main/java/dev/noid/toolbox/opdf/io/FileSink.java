@@ -9,9 +9,13 @@ import java.nio.file.Path;
 
 public class FileSink implements DataSink {
 
+  public static FileSink of(Path filePath) {
+    return new FileSink(filePath);
+  }
+
   private final Path filePath;
 
-  public FileSink(Path filePath) {
+  private FileSink(Path filePath) {
     this.filePath = filePath;
   }
 
