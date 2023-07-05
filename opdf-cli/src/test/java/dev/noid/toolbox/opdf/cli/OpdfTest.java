@@ -14,6 +14,6 @@ class OpdfTest {
     var buffer = new ByteArrayOutputStream();
     System.setOut(new PrintStream(buffer));
     Opdf.main(new String[]{"version"});
-    assertEquals("unknown", buffer.toString());
+    assertEquals("unknown" + System.lineSeparator(), buffer.toString());
   }
 }
