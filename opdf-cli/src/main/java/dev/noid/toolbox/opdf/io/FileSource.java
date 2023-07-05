@@ -9,9 +9,13 @@ import java.nio.file.Path;
 
 public class FileSource implements DataSource {
 
+  public static FileSource of(Path filePath) {
+    return new FileSource(filePath);
+  }
+
   private final Path filePath;
 
-  public FileSource(Path filePath) {
+  private FileSource(Path filePath) {
     this.filePath = filePath;
   }
 
