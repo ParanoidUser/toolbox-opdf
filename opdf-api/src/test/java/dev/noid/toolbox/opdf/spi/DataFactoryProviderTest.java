@@ -11,12 +11,12 @@ class DataFactoryProviderTest {
 
   @Test
   void lookup_default_merger_factory() {
-    assertEquals(TestDataFactory.class, getInstance(DataMergerFactory.class).getClass());
+    assertEquals(NoopDataFactory.class, getInstance(DataMergerFactory.class).getClass());
   }
 
   @Test
   void lookup_default_splitter_factory() {
-    assertEquals(TestDataFactory.class, getInstance(DataSplitterFactory.class).getClass());
+    assertEquals(NoopDataFactory.class, getInstance(DataSplitterFactory.class).getClass());
   }
 
   @Test

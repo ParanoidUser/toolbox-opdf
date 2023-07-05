@@ -3,7 +3,7 @@ package dev.noid.toolbox.opdf.spi;
 import dev.noid.toolbox.opdf.api.DataMerger;
 import dev.noid.toolbox.opdf.api.DataSplitter;
 
-public class TestDataFactory implements DataMergerFactory, DataSplitterFactory {
+public class NoopDataFactory implements DataMergerFactory, DataSplitterFactory {
 
   @Override
   public DataMerger getMerger() {
