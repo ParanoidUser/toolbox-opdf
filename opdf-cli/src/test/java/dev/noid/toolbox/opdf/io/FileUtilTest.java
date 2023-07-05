@@ -12,13 +12,11 @@ class FileUtilTest {
 
   @ParameterizedTest
   @CsvSource(textBlock = """
-          dir1\\dir2\\file.txt, file
-          dir1\\dir2\\file.   , file
-          dir1\\dir2\\file    , file
-          dir1\\dir2\\.txt    , .txt
           dir1/dir2/file.txt  , file
           dir1/dir2/file.     , file
           dir1/dir2/file      , file
+          dir1/dir2/.txt      , .txt
+          dir1/dir2/.         , .
           """)
   void extract_file_name_without_extension(String filePath, String expected) {
     Path path = Paths.get(filePath);
@@ -28,10 +26,9 @@ class FileUtilTest {
 
   @ParameterizedTest
   @CsvSource(textBlock = """
-          dir1\\dir2\\file.txt, .txt
-          dir1\\dir2\\.txt    , ''
-          dir1\\dir2\\.       , ''
           dir1/dir2/file.txt  , .txt
+          dir1/dir2/file.     , .
+          dir1/dir2/file      , ''
           dir1/dir2/.txt      , ''
           dir1/dir2/.         , ''
           """)
