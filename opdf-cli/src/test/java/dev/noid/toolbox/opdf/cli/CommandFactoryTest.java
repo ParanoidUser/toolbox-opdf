@@ -40,19 +40,25 @@ class CommandFactoryTest {
   }
 
   @Test
-  void unknown_command() {
+  void help_when_noarg_input() {
+    Runnable command = factory.getCommand();
+    assertTrue(command instanceof HelpCommand);
+  }
+
+  @Test
+  void help_when_unknown_command() {
     Runnable command = factory.getCommand("test");
     assertTrue(command instanceof HelpCommand);
   }
 
   @Test
-  void extra_arguments() {
+  void ignore_extra_arguments() {
     Runnable command = factory.getCommand("help", "help", "help!");
     assertTrue(command instanceof HelpCommand);
   }
 
   @Test
-  void missing_required_argument() {
+  void fail_when_missing_required_argument() {
     assertThrows(IllegalArgumentException.class, () -> factory.getCommand("merge"));
   }
 }
