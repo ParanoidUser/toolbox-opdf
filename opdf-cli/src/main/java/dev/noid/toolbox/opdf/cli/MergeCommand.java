@@ -23,7 +23,7 @@ class MergeCommand implements Runnable {
   @Override
   public void run() {
     Path outputFile = sourceDir.resolve("merged.pdf");
-    try (Stream<Path> fileStream = Files.list(sourceDir)) {
+    try (Stream<Path> fileStream = Files.list(sourceDir).sorted()) {
       List<FileSource> sources = fileStream.map(FileSource::of).toList();
       DataSink sink = FileSink.of(outputFile);
 
