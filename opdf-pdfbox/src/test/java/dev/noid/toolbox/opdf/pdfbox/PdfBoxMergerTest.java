@@ -2,8 +2,7 @@ package dev.noid.toolbox.opdf.pdfbox;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 import java.util.List;
 import org.apache.pdfbox.io.MemoryUsageSetting;
@@ -84,5 +83,27 @@ class PdfBoxMergerTest {
     Exception error = assertThrows(IllegalArgumentException.class, () -> merger.merge(multiSource, badSink));
     assertEquals("Cannot merge documents", error.getMessage());
     assertEquals("Test sink problem", error.getCause().getMessage());
+  }
+
+  @Test
+  void merge_error_when_chain_close() throws Exception {
+    TestSource goodSource = new TestSource("text-page-1.pdf");
+    try (var goodReading = goodSource.getReading()) {
+      var badReading = spy(goodReading);
+      doThrow(new RuntimeException("Test source problem")).when(badReading).close();
+
+      TestSource fakeSource = spy(goodSource);
+      doReturn(badReading).when(fakeSource).getReading();
+
+      TestSource anotherSource = new TestSource("text-page-2.pdf");
+      List<TestSource> multiSource = List.of(fakeSource, anotherSource);
+
+      TestSink testSink = new TestSink();
+      merger.merge(multiSource, testSink);
+
+      assertEquals(0, fakeSource.getCloseCalls()); // test failure
+      assertEquals(1, anotherSource.getCloseCalls());
+      assertEquals(2, testSink.getCloseCalls());
+    }
   }
 }
