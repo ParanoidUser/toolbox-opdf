@@ -8,8 +8,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 import org.apache.pdfbox.io.MemoryUsageSetting;
+import org.apache.pdfbox.io.RandomAccessRead;
+import org.apache.pdfbox.io.RandomAccessReadBuffer;
+import org.apache.pdfbox.io.ScratchFile;
 import org.apache.pdfbox.multipdf.Splitter;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.Loader;
 
 public class PdfBoxSplitter implements DataSplitter {
 
@@ -23,7 +27,9 @@ public class PdfBoxSplitter implements DataSplitter {
 
   @Override
   public void split(DataSource source, DataSink sink) {
-    try (InputStream stream = source.getReading(); PDDocument document = PDDocument.load(stream, memorySetting)) {
+    try (InputStream reading = source.getReading();
+         RandomAccessRead stream = new RandomAccessReadBuffer(reading);
+         PDDocument document = Loader.loadPDF(stream, () -> new ScratchFile(memorySetting))) {
       List<PDDocument> pages = docSplitter.split(document);
       for (PDDocument page : pages) {
         try (page) {
