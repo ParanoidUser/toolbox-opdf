@@ -16,7 +16,7 @@ jobs:
         java: [ 17, 20 ]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac
       - name: Setup Java
         uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2
         with:
@@ -36,7 +36,7 @@ jobs:
       security-events: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac
       - name: Setup Java
         uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2
         with:
@@ -68,7 +68,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac
       - name: Setup Java
         uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2
         with:
@@ -80,7 +80,7 @@ jobs:
       - name: Package project
         run: ./mvnw package -Passembly -DskipTests
       - name: Upload artifacts
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
         with:
           name: opdf-jar
           path: ./opdf-assembly/target/opdf.jar
@@ -108,7 +108,7 @@ jobs:
         with:
           name: opdf-jar
       - name: Setup GraalVM
-        uses: graalvm/setup-graalvm@d1891786152ae96fee67f86c3a1eae596291bbed
+        uses: graalvm/setup-graalvm@ac032b0e7e84649553af8cab1e85d7f0665bce3d
         with:
           java-version: 17
           distribution: graalvm
@@ -116,7 +116,7 @@ jobs:
       - name: Build native image
         run: native-image --no-fallback -H:+AddAllCharsets -jar opdf.jar
       - name: Upload artifacts
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
         with:
           name: ${{ matrix.package_name }}
           path: ${{ matrix.artifact_name }}
