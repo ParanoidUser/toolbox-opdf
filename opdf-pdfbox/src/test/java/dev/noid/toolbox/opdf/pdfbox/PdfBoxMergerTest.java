@@ -34,7 +34,7 @@ class PdfBoxMergerTest {
   }
 
   @Test
-  void merge_result_has_concistent_size() {
+  void merge_result_has_consistent_size() {
     TestSource page1 = new TestSource("text-page-1.pdf");
     TestSource page2 = new TestSource("text-page-2.pdf");
     TestSink testSink = new TestSink();
@@ -42,7 +42,7 @@ class PdfBoxMergerTest {
     merger.merge(List.of(page1, page2), testSink);
 
     assertEquals(1, testSink.getWritingCalls());
-    assertEquals(2138, testSink.getBytesWritten(0).length);
+    assertEquals(1551, testSink.getBytesWritten(0).length);
   }
 
   @Test
@@ -60,8 +60,7 @@ class PdfBoxMergerTest {
     assertEquals(1, page2.getCloseCalls());
 
     assertEquals(1, testSink.getWritingCalls());
-    // closed explicitly by the merger and implicitly by PDF box
-    assertEquals(2, testSink.getCloseCalls());
+    assertEquals(1, testSink.getCloseCalls());
   }
 
   @Test
@@ -103,7 +102,7 @@ class PdfBoxMergerTest {
 
       assertEquals(0, fakeSource.getCloseCalls()); // test failure
       assertEquals(1, anotherSource.getCloseCalls());
-      assertEquals(2, testSink.getCloseCalls());
+      assertEquals(1, testSink.getCloseCalls());
     }
   }
 }

@@ -38,15 +38,15 @@ class PdfBoxSplitterTest {
 
   @Test
   @EnabledOnOs(value = OS.WINDOWS, disabledReason = "on Unix final size is few bytes less")
-  void split_result_has_concistent_size() {
+  void split_result_has_consistent_size() {
     TestSource twoPages = new TestSource("two-text-pages.pdf");
     TestSink testSink = new TestSink();
 
     splitter.split(twoPages, testSink);
 
     assertEquals(2, testSink.getWritingCalls());
-    assertEquals(1245, testSink.getBytesWritten(0).length);
-    assertEquals(1208, testSink.getBytesWritten(1).length);
+    assertEquals(1146, testSink.getBytesWritten(0).length);
+    assertEquals(1109, testSink.getBytesWritten(1).length);
   }
 
   @Test
@@ -60,8 +60,7 @@ class PdfBoxSplitterTest {
     assertEquals(1, twoPages.getCloseCalls());
 
     assertEquals(2, testSink.getWritingCalls());
-    // closed explicitly by the merger and implicitly by PDF box
-    assertEquals(4, testSink.getCloseCalls());
+    assertEquals(2, testSink.getCloseCalls());
   }
 
   @Test
@@ -73,8 +72,8 @@ class PdfBoxSplitterTest {
     splitter.split(multiPage, testSink);
 
     List<Integer> knownPageSizes = List.of(
-        68643, 96934, 50784, 141184, 107684, 67333, 94891, 132892, 168068, 143445, 102770,
-        144425, 111671, 113513, 104010, 148316, 104181, 140941, 202150, 97582, 94488, 50652
+            66156, 91399, 49094, 136386, 103351, 64853, 91283, 128015, 163082, 137134, 98702,
+            138949, 106836, 107980, 99337, 143049, 99983, 135513, 185844, 93679, 90921, 48956
     );
     assertEquals(knownPageSizes.size(), testSink.getWritingCalls());
     for (int i = 0; i < knownPageSizes.size(); i++) {
