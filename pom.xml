@@ -12,7 +12,7 @@
   <name>Open PDF Tool :: Parent</name>
 
   <properties>
-    <encoding>utf-8</encoding>
+    <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
     <java.version>21</java.version>
     <pdfbox.version>3.0.0</pdfbox.version>
     <junit.version>5.10.1</junit.version>
