@@ -56,12 +56,14 @@ jobs:
         uses: github/codeql-action/analyze@cdcdbb579706841c47f7063dda365e292e5cad7a
       - name: Perform SonarCloud Analysis
         run: |
-          ./mvnw verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-            -Dsonar.organization=${{ secrets.SONAR_KEY }} \
-            -Dsonar.branch.name=${{ github.event.inputs.ref_name || github.REF_NAME}} \
-            -Dsonar.scm.disabled=true
+          ./mvnw verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+            -Dsonar.host.url=https://sonarcloud.io
+            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.organization=${{ secrets.SONAR_KEY }}
+            -Dsonar.pullrequest.branch=${{ github.HEAD_REF }}
+            -Dsonar.pullrequest.base=${{ github.BASE_REF }}
+            -Dsonar.pullrequest.key=${{ github.event.number }}
+            -Dsonar.qualitygate.wait=true
 
   package-jars:
     needs: quality-check
