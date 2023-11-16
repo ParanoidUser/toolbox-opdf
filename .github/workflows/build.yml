@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ ubuntu-22.04, macos-12, windows-2022 ]
-        java: [ 17, 20 ]
+        java: [ 21 ]
     steps:
       - name: Checkout repository
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
@@ -41,7 +41,7 @@ jobs:
         uses: actions/setup-java@0ab4596768b603586c0de567f2430c30f5b0d2b0
         with:
           distribution: temurin
-          java-version: 17
+          java-version: 21
           cache: maven
       - name: Initialize CodeQL
         uses: github/codeql-action/init@cdcdbb579706841c47f7063dda365e292e5cad7a
@@ -73,7 +73,7 @@ jobs:
         uses: actions/setup-java@0ab4596768b603586c0de567f2430c30f5b0d2b0
         with:
           distribution: temurin
-          java-version: 17
+          java-version: 21
           cache: maven
       - name: Executable Maven Wrapper
         run: chmod +x ./mvnw
@@ -110,7 +110,7 @@ jobs:
       - name: Setup GraalVM
         uses: graalvm/setup-graalvm@2a93b69fdf86ac5a078a98c1a707744632e1da94
         with:
-          java-version: 17
+          java-version: 21
           distribution: graalvm
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Build native image
