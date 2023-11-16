@@ -13,13 +13,17 @@ import static org.apache.pdfbox.io.MemoryUsageSetting.setupMixed;
 public final class PdfBoxDataFactory implements DataMergerFactory, DataSplitterFactory {
 
   private static final long MEMORY_BUFFER_SIZE = Long.getLong("inMemoryBufferSize", 100 * 1024 * 1024L);
-  private static final PdfBoxDataFactory INSTANCE = new PdfBoxDataFactory(setupMixed(MEMORY_BUFFER_SIZE));
+  private static final PdfBoxDataFactory INSTANCE = new PdfBoxDataFactory();
 
   public static PdfBoxDataFactory getInstance() {
     return INSTANCE;
   }
 
   private final MemoryUsageSetting memorySetting;
+
+  public PdfBoxDataFactory() {
+    this(setupMixed(MEMORY_BUFFER_SIZE));
+  }
 
   PdfBoxDataFactory(MemoryUsageSetting memorySetting) {
     this.memorySetting = memorySetting;
