@@ -22,7 +22,7 @@
   <modules>
     <module>opdf-api</module>
     <module>opdf-cli</module>
-    <module>opdf-pdfbox</module>
+    <module>opdf-commands</module>
   </modules>
 
   <profiles>
@@ -39,6 +39,11 @@
       <dependency>
         <groupId>dev.noid.toolbox.opdf</groupId>
         <artifactId>opdf-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>dev.noid.toolbox.opdf</groupId>
+        <artifactId>opdf-annotations</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
