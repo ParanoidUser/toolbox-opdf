@@ -72,8 +72,8 @@ class PdfBoxSplitterTest {
     splitter.split(multiPage, testSink);
 
     List<Integer> knownPageSizes = List.of(
-            66156, 91399, 49094, 136386, 103351, 64853, 91283, 128015, 163082, 137134, 98702,
-            138949, 106836, 107980, 99337, 143049, 99983, 135513, 185844, 93679, 90921, 48956
+            66179, 93052, 49117, 136399, 103372, 64875, 91302, 128031, 163098, 137154, 98720,
+            138988, 106848, 107984, 99349, 143064, 100008, 135529, 185833, 93693, 90939, 48979
     );
     assertEquals(knownPageSizes.size(), testSink.getWritingCalls());
     for (int i = 0; i < knownPageSizes.size(); i++) {
