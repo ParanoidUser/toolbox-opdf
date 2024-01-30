@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-22.04, macos-12, windows-2022 ]
+        os: [ ubuntu-22.04, macos-14, windows-2022 ]
         java: [ 21 ]
     steps:
       - name: Checkout repository
@@ -102,12 +102,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-22.04, macos-12, windows-2022 ]
+        os: [ ubuntu-22.04, macos-14, windows-2022 ]
         include:
           - os: ubuntu-22.04
             artifact_name: opdf
             package_name: opdf-linux
-          - os: macos-12
+          - os: macos-14
             artifact_name: opdf
             package_name: opdf-macos
           - os: windows-2022
