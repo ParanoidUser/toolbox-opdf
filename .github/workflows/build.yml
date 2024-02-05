@@ -115,7 +115,7 @@ jobs:
             package_name: opdf-windows
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935
+        uses: actions/download-artifact@eaceaf801fd36c7dee90939fad912460b18a1ffe
         with:
           name: opdf-jar
       - name: Setup GraalVM
