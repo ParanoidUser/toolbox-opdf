@@ -23,7 +23,7 @@ jobs:
         java: [ 21 ]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
       - name: Setup Java
         uses: actions/setup-java@9704b39bf258b59bc04b50fa2dd55e9ed76b47a8
         with:
@@ -43,7 +43,7 @@ jobs:
       security-events: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
         with:
           fetch-depth: 0
       - name: Setup Java
@@ -79,7 +79,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
       - name: Setup Java
         uses: actions/setup-java@9704b39bf258b59bc04b50fa2dd55e9ed76b47a8
         with:
