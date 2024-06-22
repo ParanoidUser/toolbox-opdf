@@ -23,7 +23,7 @@ jobs:
         java: [ 21 ]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Setup Java
         uses: actions/setup-java@99b8673ff64fbf99d8d325f52d9a5bdedb8483e9
         with:
@@ -43,7 +43,7 @@ jobs:
       security-events: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           fetch-depth: 0
       - name: Setup Java
@@ -53,7 +53,7 @@ jobs:
           java-version: 21
           cache: maven
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@cdcdbb579706841c47f7063dda365e292e5cad7a
+        uses: github/codeql-action/init@23acc5c183826b7a8a97bce3cecc52db901f8251
         with:
           languages: java
           queries: security-and-quality
@@ -62,7 +62,7 @@ jobs:
       - name: Compile project
         run: ./mvnw compile
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@cdcdbb579706841c47f7063dda365e292e5cad7a
+        uses: github/codeql-action/analyze@23acc5c183826b7a8a97bce3cecc52db901f8251
       - name: Perform SonarCloud Analysis
         run: |
           ./mvnw verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
@@ -76,7 +76,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Setup Java
         uses: actions/setup-java@99b8673ff64fbf99d8d325f52d9a5bdedb8483e9
         with:
