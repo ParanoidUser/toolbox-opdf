@@ -88,7 +88,7 @@ jobs:
       - name: Package project
         run: ./mvnw package -Passembly -DskipTests
       - name: Upload artifacts
-        uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: opdf-jar
           path: ./opdf-assembly/target/opdf.jar
@@ -124,7 +124,7 @@ jobs:
       - name: Build native image
         run: native-image --no-fallback -H:+AddAllCharsets -jar opdf.jar
       - name: Upload artifacts
-        uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: ${{ matrix.package_name }}
           path: ${{ matrix.artifact_name }}
