@@ -25,7 +25,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Setup Java
-        uses: actions/setup-java@b36c23c0d998641eff861008f374ee103c25ac73
+        uses: actions/setup-java@8df1039502a15bceb9433410b1a100fbe190c53b
         with:
           distribution: temurin
           java-version: ${{ matrix.java }}
@@ -47,7 +47,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Setup Java
-        uses: actions/setup-java@b36c23c0d998641eff861008f374ee103c25ac73
+        uses: actions/setup-java@8df1039502a15bceb9433410b1a100fbe190c53b
         with:
           distribution: temurin
           java-version: 21
@@ -78,7 +78,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Setup Java
-        uses: actions/setup-java@b36c23c0d998641eff861008f374ee103c25ac73
+        uses: actions/setup-java@8df1039502a15bceb9433410b1a100fbe190c53b
         with:
           distribution: temurin
           java-version: 21
