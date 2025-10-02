@@ -116,7 +116,7 @@ jobs:
         with:
           name: opdf-jar
       - name: Setup GraalVM
-        uses: graalvm/setup-graalvm@aba6a077d71fbfc02138d7470c4ad6e7f85bd2a9
+        uses: graalvm/setup-graalvm@2a2412009026a83f51d179f92dc2b3fd4c8142df
         with:
           java-version: 21
           distribution: graalvm
